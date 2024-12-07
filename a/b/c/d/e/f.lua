@@ -82,13 +82,13 @@ rhy = {
     spr = function(a, b, c, d)
         localX = math.floor(getLocal().pos.x / 32)
         if b == 18 then
-            if c > localX then
+            if c >= localX then
                 state = 54 * 48
             else
                 state = 54 * 48 + 16
             end
         else
-            if c > localX then
+            if c >= localX then
                 state = 65 * 48 - 16
             else
                 state = 65 * 48
@@ -112,24 +112,26 @@ rhy = {
             punchx = c,
             punchy = d
         })
-        sendPacketRaw(false, {
-            type = 0,
-            padding1 = 0,
-            padding2 = 0,
-            padding3 = 0,
-            netid = 0,
-            secid = 0,
-            state = state,
-            padding4 = 0.000000,
-            value = b,
-            x = getLocal().pos.x,
-            y = getLocal().pos.y,
-            speedx = 0.000000,
-            speedy = 0.000000,
-            padding5 = 0,
-            punchx = c,
-            punchy = d
-        })
+        if ~= 32 then
+	        sendPacketRaw(false, {
+	            type = 0,
+	            padding1 = 0,
+	            padding2 = 0,
+	            padding3 = 0,
+	            netid = 0,
+	            secid = 0,
+	            state = state,
+	            padding4 = 0.000000,
+	            value = b,
+	            x = getLocal().pos.x,
+	            y = getLocal().pos.y,
+	            speedx = 0.000000,
+	            speedy = 0.000000,
+	            padding5 = 0,
+	            punchx = c,
+	            punchy = d
+	        })
+	    end
     end,
     checkPath = function(x, y)
         _path0x001 = math.floor(getLocal().pos.x / 32)
@@ -177,7 +179,6 @@ rhy = {
             rhy.move(nextX, nextY)
             rhy.randomSleep(path_delay, path_delay + 100)
         end
-        sleep(200)
         sendPacketRaw(false, {
             type = 0,
             state = state,
@@ -185,7 +186,7 @@ rhy = {
             punchx = -1,
             punchy = -1
         })
-        sleep(500)
+        await(function() return (math.floor(getLocal().pos.x/32) == nextX) end, 5)
     end,
     sendCollect = function(a, ItemID)
         localPosX, localPosY = math.floor(getLocal().pos.x / 32), math.floor(getLocal().pos.y / 32)
@@ -249,18 +250,19 @@ rhy = {
     log = function(a, b)
         sendVariant({[0] = "OnConsoleMessage", [1] = "`0[`#Dr.Rhy Universe`0][`1"..a.."`0] `5"..b})
     end,
-    cek = function(world) 
-        while true do
-            if string.find(world, "|") then
-                save = string.match(world, "([^|]+)")
-            else
-                save = world
+    cek = function(world)
+        cekAttempt = 0
+        while cekAttempt < 5 do
+        	if string.find(world, "|") then
+                world = string.match(world, "([^|]+)")
             end
-            if string.upper(getWorld().name) == string.upper(save) then
+            if string.upper(getWorld().name) == string.upper(world) then
                 return true 
             end
+            cekAttempt = cekAttempt + 1
             rhy.randomSleep(1574, 1674)
         end
+        return false
     end,
     warp = function(r)
         sendPacket(3, "action|join_request\nname|"..r.."\ninvitedWorld|0")
