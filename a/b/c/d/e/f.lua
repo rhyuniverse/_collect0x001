@@ -1,18 +1,3 @@
-block_id = 340
-delay_place = 70
-delay_break = 140
-drop_x, drop_y = 85, 21
-auto_trash = true
-auto_collect = true
-radius_collect = 10
-trash_list = {5028}
-tile_pnb = {
-    {-1, -1}, {-1, 0}, {-1, 1}
-}
-
-script_by = "Rhy Universe"
-link_discord = "https://discord.com/invite/xVyUWvut2D"
-
 function runCoroutine(func)
     co = coroutine.create(func)
     success, err = coroutine.resume(co)
