@@ -395,16 +395,5 @@ rhy = {
             punchx = -1,
             punchy = -1
         })
-        sendPacketRaw(false, {
-            type = 0,
-            state = state,
-            value = 0,
-            x = a * 32 + 6,
-            y = b * 32 + 2,
-            speedx = 0,
-            speedy = 0,
-            punchx = -1,
-            punchy = -1
-        })
     end
 }
