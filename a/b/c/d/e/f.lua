@@ -182,7 +182,7 @@ rhy = {
             rhy.move(nextX, nextY)
             rhy.randomSleep(path_delay, path_delay + 100)
         end
-	sleep(100)
+	sleep(200)
         sendPacketRaw(false, {
             type = 0,
             state = state,
@@ -191,6 +191,7 @@ rhy = {
             punchy = -1
         })
 	sleep(10)
+	doLog("a")
         await(function() return (math.floor(getLocal().pos.x/32) == nextX) end, 5)
 	sleep(100)
     end,
