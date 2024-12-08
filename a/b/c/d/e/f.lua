@@ -189,9 +189,8 @@ rhy = {
             punchx = -1,
             punchy = -1
         })
-	doLog("a")
+	sleep(400)
         await(function() return (math.floor(getLocal().pos.x/32) == nextX) end, 5)
-	sleep(300)
     end,
     sendCollect = function(a, ItemID)
         localPosX, localPosY = math.floor(getLocal().pos.x / 32), math.floor(getLocal().pos.y / 32)
