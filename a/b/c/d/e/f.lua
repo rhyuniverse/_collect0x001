@@ -80,7 +80,10 @@ rhy = {
         sleep(math.random(a, b))
     end,
     spr = function(a, b, c, d)
-        localX = math.floor(getLocal().pos.x / 32)
+        localX, localY = math.floor(getLocal().pos.x / 32), math.floor(getLocal().pos.y / 32)
+        if not (math.abs(c - localX) < 3 or not math.abs(d - localY) < 3) then
+            return
+        end
         if b == 18 then
             if c >= localX then
                 state = 54 * 48
