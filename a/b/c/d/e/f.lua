@@ -115,7 +115,7 @@ rhy = {
             punchx = c,
             punchy = d
         })
-        if ~= 32 then
+        if b ~= 32 then
 	        sendPacketRaw(false, {
 	            type = 0,
 	            padding1 = 0,
