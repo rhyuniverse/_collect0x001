@@ -396,3 +396,4 @@ rhy = {
         })
     end
 }
+logToConsole("API Loaded.")
