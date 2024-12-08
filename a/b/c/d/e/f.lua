@@ -185,11 +185,9 @@ rhy = {
         sendPacketRaw(false, {
             type = 0,
             state = state,
-            value = 0,
-            punchx = -1,
-            punchy = -1
+            value = 0
         })
-	sleep(400)
+	sleep(500)
         await(function() return (math.floor(getLocal().pos.x/32) == nextX) end, 5)
     end,
     sendCollect = function(a, ItemID)
